@@ -268,6 +268,23 @@ function astFromSrc(fname, src) {
     return ast;
 }
 
+/* t.terada: Build as AST from a collection of asts */
+function astFromAsts(asts) {
+    const ast = {
+        type: 'ProgramCollection',
+        programs: [],
+        attr: {}
+    }
+
+    for (let wk of asts) {
+        wk.attr = wk.attr ?? {};
+        wk.attr.filename = wk.attr.filename ?? `PG${ast.programs.length}`;
+        ast.programs.push(wk);
+    }
+    init(ast);
+    return ast;
+}
+
 function reportError(msg, err) {
     console.log('-------------------------------------------');
     console.log(msg);
@@ -579,6 +596,7 @@ module.exports.funcname = funcname;
 module.exports.encFuncName = encFuncName;
 module.exports.astFromFiles = astFromFiles;
 module.exports.astFromSrc = astFromSrc;
+module.exports.astFromAsts = astFromAsts;
 module.exports.parse = parse;
 module.exports.getFunctions = getFunctions;
 module.exports.isAnon = isAnon;

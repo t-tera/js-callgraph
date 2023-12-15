@@ -23,6 +23,7 @@ define(function (require, exports) {
         JSONStream = require('JSONStream');
     this.args = null;
     this.files = null;
+    this.asts = null;
     this.consoleOutput = null;
 
     Array.prototype.remove = function () {
@@ -103,6 +104,7 @@ define(function (require, exports) {
     let build = function () {
         let args = this.args;
         let files = this.files;
+        let asts = this.asts;
         let consoleOutput = this.consoleOutput;
 
         let filter = this.filter;
@@ -137,9 +139,15 @@ define(function (require, exports) {
             console.warn('strategy FULL not implemented yet; using DEMAND instead');
             args.strategy = 'DEMAND';
         }
-        if (args.time) console.time("parsing  ");
-        var ast = astutil.astFromFiles(files);
-        if (args.time) console.timeEnd("parsing  ");
+
+        var ast;
+        if (asts) {
+            ast = astutil.astFromAsts(asts);
+        } else {
+            if (args.time) console.time("parsing  ");
+            ast = astutil.astFromFiles(files);
+            if (args.time) console.timeEnd("parsing  ");
+        }
 
         if (args.time) console.time("bindings ");
         bindings.addBindings(ast);
@@ -174,7 +182,7 @@ define(function (require, exports) {
                 if (consoleOutput)
                     console.log(pp(call) + " -> " + pp(fn));
             });
-            if (this.args.output !== null) {
+            if ((this.args.output ?? []).length > 0) {
                 let filename = this.args.output[0];
                 if (!filename.endsWith(".json")) {
                     filename += ".json";
@@ -217,6 +225,10 @@ define(function (require, exports) {
             console.warn("Input file list is empty!");
             process.exit(-1);
         }
+    };
+
+    exports.setAsts = function (asts) {
+        this.asts = asts;
     };
 
     exports.setFilter = function (filter) {

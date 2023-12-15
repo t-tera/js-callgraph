@@ -10,6 +10,7 @@ const JCG = require("./src/runner");
 
 exports.setArgs = JCG.setArgs;
 exports.setFiles = JCG.setFiles;
+exports.setAsts = JCG.setAsts;
 exports.setFilter = JCG.setFilter;
 exports.setConsoleOutput = JCG.setConsoleOutput;
 exports.build = JCG.build;
