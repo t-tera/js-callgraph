@@ -7,7 +7,6 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-2.0.
  *******************************************************************************/
-    const { build } = require('js-callgraph');
 const bindings = require('./bindings'),
         astutil = require('./astutil'),
         pessimistic = require('./pessimistic'),
