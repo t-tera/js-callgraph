@@ -10,11 +10,6 @@
 
 /* Simple implementation of symbol tables. Uses
  * prototypal inheritance to model scoping. */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define(function (require, exports) {
     function mangle(name) {
         return '$' + name;
     }
@@ -61,5 +56,3 @@ define(function (require, exports) {
     };
 
     exports.Symtab = Symtab;
-    return exports;
-});

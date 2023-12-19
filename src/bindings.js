@@ -9,11 +9,7 @@
  *******************************************************************************/
 
 /* Name bindings for lexical variables. */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
 
-define(function (require, exports) {
     var astutil = require('./astutil'),
         symtab = require('./symtab');
 
@@ -192,5 +188,3 @@ define(function (require, exports) {
     }
 
     exports.addBindings = addBindings;
-    return exports;
-});

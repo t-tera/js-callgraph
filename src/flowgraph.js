@@ -12,11 +12,6 @@
  * This module defines the machinery for extracting a flow graph from an AST.
  */
 
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define(function (require, exports) {
     var astutil = require('./astutil'),
         graph = require('./graph'),
         symtab = require('./symtab');
@@ -403,5 +398,3 @@ define(function (require, exports) {
     exports.resVertex = resVertex;
     exports.vertexFor = vertexFor;
     exports.propVertex = propVertex;
-    return exports;
-});

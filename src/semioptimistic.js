@@ -12,11 +12,6 @@
  * which interprocedural flows to propagate: it only propagates
  * along edges that lead to a function call. */
 
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define(function (require, exports) {
     var graph = require('./graph'),
         natives = require('./natives'),
         flowgraph = require('./flowgraph'),
@@ -111,5 +106,3 @@ define(function (require, exports) {
 
     exports.addInterproceduralFlowEdges = addInterproceduralFlowEdges;
     exports.buildCallGraph = buildCallGraph;
-    return exports;
-});

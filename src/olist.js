@@ -13,11 +13,6 @@
  * are represented as single numbers, the empty set as undefined.
  */
 
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define(function (require, exports) {
     function size(a) {
         if (typeof a === 'undefined')
             return 0;
@@ -270,5 +265,3 @@ define(function (require, exports) {
     exports.all = all;
     exports.fromArray = fromArray;
     exports.toArray = toArray;
-    return exports;
-});

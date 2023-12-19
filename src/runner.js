@@ -7,24 +7,20 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-2.0.
  *******************************************************************************/
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-define(function (require, exports) {
     const bindings = require('./bindings'),
         astutil = require('./astutil'),
         pessimistic = require('./pessimistic'),
         semioptimistic = require('./semioptimistic'),
         callbackCounter = require('./callbackCounter'),
-        requireJsGraph = require('./requireJsGraph'),
         path = require('path'),
         fs = require('fs'),
         utils = require('./utils'),
         JSONStream = require('JSONStream');
-    this.args = null;
-    this.files = null;
-    this.asts = null;
-    this.consoleOutput = null;
+    let _this = {};
+    _this.args = null;
+    _this.files = null;
+    _this.asts = null;
+    _this.consoleOutput = null;
 
     Array.prototype.remove = function () {
         var what, a = arguments, L = a.length, ax;
@@ -102,12 +98,12 @@ define(function (require, exports) {
     };
 
     let build = function () {
-        let args = this.args;
-        let files = this.files;
-        let asts = this.asts;
-        let consoleOutput = this.consoleOutput;
+        let args = _this.args;
+        let files = _this.files;
+        let asts = _this.asts;
+        let consoleOutput = _this.consoleOutput;
 
-        let filter = this.filter;
+        let filter = _this.filter;
 
         if (filter !== undefined && filter.length > 0) {
             let filteredfiles = [];
@@ -171,10 +167,6 @@ define(function (require, exports) {
         if (args.countCB)
             callbackCounter.countCallbacks(ast);
 
-        if (args.reqJs)
-            requireJsGraph.makeRequireJsGraph(ast).forEach(function (edge) {
-                console.log(edge.toString());
-            });
         if (args.cg) {
             let result = [];
             cg.edges.iter(function (call, fn) {
@@ -182,8 +174,8 @@ define(function (require, exports) {
                 if (consoleOutput)
                     console.log(pp(call) + " -> " + pp(fn));
             });
-            if ((this.args.output ?? []).length > 0) {
-                let filename = this.args.output[0];
+            if ((_this.args.output ?? []).length > 0) {
+                let filename = _this.args.output[0];
                 if (!filename.endsWith(".json")) {
                     filename += ".json";
                 }
@@ -220,29 +212,27 @@ define(function (require, exports) {
                 filelist.push(file);
             }
         });
-        this.files = Array.from(new Set(filelist));
-        if (this.files.length === 0) {
+        _this.files = Array.from(new Set(filelist));
+        if (_this.files.length === 0) {
             console.warn("Input file list is empty!");
             process.exit(-1);
         }
     };
 
     exports.setAsts = function (asts) {
-        this.asts = asts;
+        _this.asts = asts;
     };
 
     exports.setFilter = function (filter) {
-        this.filter = filter;
+        _this.filter = filter;
     };
 
     exports.setArgs = function (args) {
-        this.args = args;
+        _this.args = args;
     };
 
     exports.setConsoleOutput = function (value) {
-        this.consoleOutput = value;
+        _this.consoleOutput = value;
     };
 
     exports.build = build;
-    return exports;
-});

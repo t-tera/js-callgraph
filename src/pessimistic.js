@@ -9,11 +9,6 @@
  *******************************************************************************/
 
 /* Pessimistic call graph builder. */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define(function (require, exports) {
     var graph = require('./graph'),
         natives = require('./natives'),
         flowgraph = require('./flowgraph'),
@@ -62,5 +57,3 @@ define(function (require, exports) {
     }
 
     exports.buildCallGraph = buildCallGraph;
-    return exports;
-});

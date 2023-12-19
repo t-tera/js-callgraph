@@ -1,8 +1,3 @@
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define(function(require, exports) {
     var astutil = require('./astutil'),
         graph = require('./graph');
 
@@ -70,6 +65,3 @@ define(function(require, exports) {
             return parameter.name === functionName;
         };
     }
-
-    return exports;
-});

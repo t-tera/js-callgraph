@@ -13,11 +13,6 @@
  * Ioannidis and Ramakrishnan ("Efficient Transitive Closure Algorithms", VLDB '88).
  */
 
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define(function (require, exports) {
   const { nd2str } = require('./graph');
 
     exports.reachability = function (graph, nodePred) {
@@ -178,5 +173,3 @@ define(function (require, exports) {
             }
         };
     };
-    return exports;
-});

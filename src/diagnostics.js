@@ -9,11 +9,6 @@
  *******************************************************************************/
 
 /* Module for converting a graph into DOT format. */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define(function (require, exports) {
     var graph = require('./graph'),
         fs = require('fs');
 
@@ -30,6 +25,3 @@ define(function (require, exports) {
     graph.Graph.prototype.writeDOTFile = function (fn) {
         fs.writeFileSync(fn, this.dotify());
     };
-
-    return exports;
-});

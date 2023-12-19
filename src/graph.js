@@ -9,11 +9,6 @@
  *******************************************************************************/
 
  /* Graphs represented using adjacency sets. */
- if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define(function (require, exports) {
     const { LinkedList } = require('./linkedList');
 
     class BasicGraph {
@@ -249,5 +244,3 @@ define(function (require, exports) {
     exports.Graph = Graph;
     exports.FlowGraph = FlowGraph;
     exports.nd2str = nodeToString;
-    return exports;
-});

@@ -12,11 +12,6 @@
  * Implementation of sets of non-negative integers as bitsets.
  */
 
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define(function (require, exports) {
     // Wegner's algorithm
     function countBitsInWord(w) {
         var cnt = 0;
@@ -235,5 +230,3 @@ define(function (require, exports) {
     exports.all = all;
     exports.fromArray = fromArray;
     exports.toArray = toArray;
-    return exports;
-});

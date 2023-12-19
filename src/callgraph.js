@@ -9,11 +9,6 @@
  *******************************************************************************/
 
 /* Module for extracting a call graph from a flow graph. */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define(function (require, exports) {
     var graph = require('./graph'),
         dftc = require('./dftc.js'),
         flowgraph = require('./flowgraph');
@@ -67,5 +62,3 @@ define(function (require, exports) {
     }
 
     exports.extractCG = extractCG;
-    return exports;
-});

@@ -10,11 +10,6 @@
 
 /* Module for adding standard library/DOM modelling to flow graph. */
 
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define(function (require, exports) {
     var flowgraph = require('./flowgraph'),
         nativeFlows = require('./harness').nativeFlows;
 
@@ -35,5 +30,3 @@ define(function (require, exports) {
     }
 
     exports.addNativeFlowEdges = addNativeFlowEdges;
-    return exports;
-});
