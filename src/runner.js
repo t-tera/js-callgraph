@@ -7,7 +7,8 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-2.0.
  *******************************************************************************/
-    const bindings = require('./bindings'),
+    const { build } = require('js-callgraph');
+const bindings = require('./bindings'),
         astutil = require('./astutil'),
         pessimistic = require('./pessimistic'),
         semioptimistic = require('./semioptimistic'),
@@ -16,7 +17,9 @@
         fs = require('fs'),
         utils = require('./utils'),
         JSONStream = require('JSONStream');
-    let _this = {};
+
+exports.build = function(options={}) {
+    const _this = {};
     _this.args = null;
     _this.files = null;
     _this.asts = null;
@@ -97,7 +100,7 @@
         throw new Error("strange vertex: " + v);
     };
 
-    let build = function () {
+    let buildMain = function () {
         let args = _this.args;
         let files = _this.files;
         let asts = _this.asts;
@@ -198,7 +201,7 @@
         }
     };
 
-    exports.setFiles = function (inputList) {
+    let setFiles = function (inputList) {
         let filelist = [];
         inputList.forEach(function (file) {
             file = path.resolve(file);
@@ -219,20 +222,21 @@
         }
     };
 
-    exports.setAsts = function (asts) {
-        _this.asts = asts;
-    };
+    if (options.asts) {
+        _this.asts = options.asts;
+    }
+    if (options.filter) {
+        _this.filter = options.filter;
+    }
+    if (options.args) {
+        _this.args = options.args;
+    }
+    if (options.consoleOutput) {
+        _this._consoleOutput = options.consoleOutput;
+    }
+    if (options.files) {
+        setFiles(options.files);
+    }
 
-    exports.setFilter = function (filter) {
-        _this.filter = filter;
-    };
-
-    exports.setArgs = function (args) {
-        _this.args = args;
-    };
-
-    exports.setConsoleOutput = function (value) {
-        _this.consoleOutput = value;
-    };
-
-    exports.build = build;
+    return buildMain();
+}
