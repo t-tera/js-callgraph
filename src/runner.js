@@ -11,11 +11,11 @@ const bindings = require('./bindings'),
         astutil = require('./astutil'),
         pessimistic = require('./pessimistic'),
         semioptimistic = require('./semioptimistic'),
-        callbackCounter = require('./callbackCounter'),
-        path = require('path'),
-        fs = require('fs'),
-        utils = require('./utils'),
-        JSONStream = require('JSONStream');
+        callbackCounter = require('./callbackCounter');
+        //path = require('path'),
+        //fs = require('fs'),
+        //utils = require('./utils'),
+        //JSONStream = require('JSONStream');
 
 exports.build = function(options={}) {
     const _this = {};
@@ -176,30 +176,31 @@ exports.build = function(options={}) {
                 if (consoleOutput)
                     console.log(pp(call) + " -> " + pp(fn));
             });
-            if ((_this.args.output ?? []).length > 0) {
-                let filename = _this.args.output[0];
-                if (!filename.endsWith(".json")) {
-                    filename += ".json";
-                }
-                fs.writeFile(filename, JSON.stringify(result, null, 2), function (err) {
-                    if (err) {
-                        /*
-                        When happened something wrong (usually out of memory when we want print
-                        the result into a file), then we try to file with JSONStream.
-                         */
-                        let transformStream = JSONStream.stringify();
-                        let outputStream = fs.createWriteStream(filename);
-                        transformStream.pipe(outputStream);
-                        result.forEach(transformStream.write);
-                        transformStream.end();
-                    }
-                });
+            // if ((_this.args.output ?? []).length > 0) {
+            //     let filename = _this.args.output[0];
+            //     if (!filename.endsWith(".json")) {
+            //         filename += ".json";
+            //     }
+            //     fs.writeFile(filename, JSON.stringify(result, null, 2), function (err) {
+            //         if (err) {
+            //             /*
+            //             When happened something wrong (usually out of memory when we want print
+            //             the result into a file), then we try to file with JSONStream.
+            //              */
+            //             let transformStream = JSONStream.stringify();
+            //             let outputStream = fs.createWriteStream(filename);
+            //             transformStream.pipe(outputStream);
+            //             result.forEach(transformStream.write);
+            //             transformStream.end();
+            //         }
+            //     });
 
-            }
+            // }
             return result;
         }
     };
 
+    /*
     let setFiles = function (inputList) {
         let filelist = [];
         inputList.forEach(function (file) {
@@ -220,6 +221,7 @@ exports.build = function(options={}) {
             process.exit(-1);
         }
     };
+    */
 
     if (options.asts) {
         _this.asts = options.asts;

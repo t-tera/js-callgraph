@@ -8,8 +8,8 @@
  * http://www.eclipse.org/legal/epl-2.0.
  *******************************************************************************/
 
-const espree = require('espree');
-const fs = require('fs');
+//const espree = require('espree');
+//const fs = require('fs');
 //const vueParser = require('vue-parser');
 //const prep = require('./srcPreprocessor');
 
@@ -231,20 +231,20 @@ function ppPos(nd) {
 }
 
 /* Build as AST from a collection of source files */
-function astFromFiles(files) {
-    const ast = {
-        type: 'ProgramCollection',
-        programs: [],
-        attr: {}
-    }
+// function astFromFiles(files) {
+//     const ast = {
+//         type: 'ProgramCollection',
+//         programs: [],
+//         attr: {}
+//     }
 
-    for (let file of files) {
-        let src = fs.readFileSync(file, 'utf-8');
-        ast.programs.push(buildProgram(file, src));
-    }
-    init(ast);
-    return ast;
-}
+//     for (let file of files) {
+//         let src = fs.readFileSync(file, 'utf-8');
+//         ast.programs.push(buildProgram(file, src));
+//     }
+//     init(ast);
+//     return ast;
+// }
 
 /* Build an AST from file name and source code
 Args:
@@ -255,18 +255,18 @@ Return:
     If succeeded, return an ast node of type 'ProgramCollection'.
     If failed, return null.
 */
-function astFromSrc(fname, src) {
-    const prog = buildProgram(fname, src);
-    if (prog === null)
-        return null;
-    const ast = {
-        'type': 'ProgramCollection',
-        'programs': [prog],
-        'attr': {}
-    }
-    init(ast);
-    return ast;
-}
+// function astFromSrc(fname, src) {
+//     const prog = buildProgram(fname, src);
+//     if (prog === null)
+//         return null;
+//     const ast = {
+//         'type': 'ProgramCollection',
+//         'programs': [prog],
+//         'attr': {}
+//     }
+//     init(ast);
+//     return ast;
+// }
 
 /* t.terada: Build as AST from a collection of asts */
 function astFromAsts(asts) {
@@ -296,15 +296,15 @@ function reportError(msg, err) {
 To avoid confusion caused by too many different parsing settings,
 please call this function whenever possible instead of rewriting esprima.parseModule...
 */
-function parse(src) {
-    return espree.parse(src, {
-        loc: true,
-        range: true,
-        jsx: true,
-        sourceType: 'module',
-        ecmaVersion: 2022,
-    });
-}
+// function parse(src) {
+//     return espree.parse(src, {
+//         loc: true,
+//         range: true,
+//         jsx: true,
+//         sourceType: 'module',
+//         ecmaVersion: 2022,
+//     });
+// }
 
 /* Parse a single source file and return its ast
 Args:
@@ -315,43 +315,41 @@ Return:
     If succeeded, return an ast node of type 'Program'.
     If failed, return null.
 */
-function buildProgram (fname, src) {
-    /*
-    // trim hashbang
-    src = prep.trimHashbangPrep(src);
-    // extract script from .vue file
-    try {
-        if (fname.endsWith('.vue'))
-            src = vueParser.parse(src, 'script');
-    }
-    catch (err) {
-        reportError('WARNING: Extracting <script> from .vue failed.', err);
-        return null;
-    }
+// function buildProgram (fname, src) {
+//     // trim hashbang
+//     src = prep.trimHashbangPrep(src);
+//     // extract script from .vue file
+//     try {
+//         if (fname.endsWith('.vue'))
+//             src = vueParser.parse(src, 'script');
+//     }
+//     catch (err) {
+//         reportError('WARNING: Extracting <script> from .vue failed.', err);
+//         return null;
+//     }
 
-    // transpile typescript
-    try {
-        if (fname.endsWith('.ts'))
-            src = prep.typescriptPrep(fname, src);
-    }
-    catch (err) {
-        reportError('WARNING: Transpiling typescript failed.', err);
-        return null;
-    }
-    */
+//     // transpile typescript
+//     try {
+//         if (fname.endsWith('.ts'))
+//             src = prep.typescriptPrep(fname, src);
+//     }
+//     catch (err) {
+//         reportError('WARNING: Transpiling typescript failed.', err);
+//         return null;
+//     }
 
-    // parse javascript
-    let prog;
-    try {
-        prog = parse(src);
-    }
-    catch(err) {
-        reportError('Warning: espree failed to parse ' + fname, err);
-        return null;
-    }
-    prog.attr = {filename: fname};
-    return prog;
-}
+//     // parse javascript
+//     let prog;
+//     try {
+//         prog = parse(src);
+//     }
+//     catch(err) {
+//         reportError('Warning: espree failed to parse ' + fname, err);
+//         return null;
+//     }
+//     prog.attr = {filename: fname};
+//     return prog;
+// }
 
 // cf is used by getFunctions
 const cf = funcObj => {
@@ -598,10 +596,10 @@ module.exports.init = init;
 module.exports.ppPos = ppPos;
 module.exports.funcname = funcname;
 module.exports.encFuncName = encFuncName;
-module.exports.astFromFiles = astFromFiles;
-module.exports.astFromSrc = astFromSrc;
+//module.exports.astFromFiles = astFromFiles;
+//module.exports.astFromSrc = astFromSrc;
 module.exports.astFromAsts = astFromAsts;
-module.exports.parse = parse;
+//module.exports.parse = parse;
 module.exports.getFunctions = getFunctions;
 module.exports.isAnon = isAnon;
 module.exports.isModuleExports = isModuleExports;
