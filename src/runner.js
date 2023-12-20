@@ -20,7 +20,7 @@ const bindings = require('./bindings'),
 exports.build = function(options={}) {
     const _this = {};
     _this.args = null;
-    _this.files = null;
+    //_this.files = null;
     _this.asts = null;
     _this.consoleOutput = null;
 
@@ -101,33 +101,33 @@ exports.build = function(options={}) {
 
     let buildMain = function () {
         let args = _this.args;
-        let files = _this.files;
+        //let files = _this.files;
         let asts = _this.asts;
         let consoleOutput = _this.consoleOutput;
 
-        let filter = _this.filter;
+        //let filter = _this.filter;
 
-        if (filter !== undefined && filter.length > 0) {
-            let filteredfiles = [];
-            files.forEach(function (file) {
-                filteredfiles.push(file);
-                filter.forEach(function (elem) {
-                    let trunk = elem.substr(1).trim();
-                    let expression = new RegExp(trunk, "gm");
-                    let result = expression.test(file);
+        // if (filter !== undefined && filter.length > 0) {
+        //     let filteredfiles = [];
+        //     files.forEach(function (file) {
+        //         filteredfiles.push(file);
+        //         filter.forEach(function (elem) {
+        //             let trunk = elem.substr(1).trim();
+        //             let expression = new RegExp(trunk, "gm");
+        //             let result = expression.test(file);
 
-                    if (result && elem.startsWith('-')) {
-                        filteredfiles.remove(file);
-                    }
+        //             if (result && elem.startsWith('-')) {
+        //                 filteredfiles.remove(file);
+        //             }
 
-                    if (result && elem.startsWith('+')) {
-                        filteredfiles.push(file);
-                    }
+        //             if (result && elem.startsWith('+')) {
+        //                 filteredfiles.push(file);
+        //             }
 
-                });
-            });
-            files = Array.from(new Set(filteredfiles));
-        }
+        //         });
+        //     });
+        //     files = Array.from(new Set(filteredfiles));
+        // }
 
         args.strategy = args.strategy || 'ONESHOT';
         if (!args.strategy.match(/^(NONE|ONESHOT|DEMAND|FULL)$/)) {
@@ -141,10 +141,10 @@ exports.build = function(options={}) {
         var ast;
         if (asts) {
             ast = astutil.astFromAsts(asts);
-        } else {
-            if (args.time) console.time("parsing  ");
-            ast = astutil.astFromFiles(files);
-            if (args.time) console.timeEnd("parsing  ");
+        //} else {
+        //    if (args.time) console.time("parsing  ");
+        //    ast = astutil.astFromFiles(files);
+        //    if (args.time) console.timeEnd("parsing  ");
         }
 
         if (args.time) console.time("bindings ");
@@ -226,14 +226,14 @@ exports.build = function(options={}) {
     if (options.asts) {
         _this.asts = options.asts;
     }
-    if (options.filter) {
-        _this.filter = options.filter;
-    }
+    //if (options.filter) {
+    //    _this.filter = options.filter;
+    //}
     if (options.args) {
         _this.args = options.args;
     }
     if (options.consoleOutput) {
-        _this._consoleOutput = options.consoleOutput;
+        _this.consoleOutput = options.consoleOutput;
     }
     //if (options.files) {
     //    setFiles(options.files);
