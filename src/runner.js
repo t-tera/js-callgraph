@@ -235,9 +235,9 @@ exports.build = function(options={}) {
     if (options.consoleOutput) {
         _this._consoleOutput = options.consoleOutput;
     }
-    if (options.files) {
-        setFiles(options.files);
-    }
+    //if (options.files) {
+    //    setFiles(options.files);
+    //}
 
     return buildMain();
 }
