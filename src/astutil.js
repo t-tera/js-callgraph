@@ -10,8 +10,8 @@
 
 const espree = require('espree');
 const fs = require('fs');
-const vueParser = require('vue-parser');
-const prep = require('./srcPreprocessor');
+//const vueParser = require('vue-parser');
+//const prep = require('./srcPreprocessor');
 
 /* AST visitor */
 function visit(root, visitor) {
@@ -316,6 +316,7 @@ Return:
     If failed, return null.
 */
 function buildProgram (fname, src) {
+    /*
     // trim hashbang
     src = prep.trimHashbangPrep(src);
     // extract script from .vue file
@@ -337,6 +338,7 @@ function buildProgram (fname, src) {
         reportError('WARNING: Transpiling typescript failed.', err);
         return null;
     }
+    */
 
     // parse javascript
     let prog;
