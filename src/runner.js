@@ -40,16 +40,12 @@ exports.build = function(options={}) {
             let nd = v.call;
             edge.label = astutil.encFuncName(nd.attr.enclosingFunction);
             edge.file = nd.attr.enclosingFile;
-            edge.start = {row: nd.loc.start.line, column: nd.loc.start.column};
-            edge.end = {row: nd.loc.end.line, column: nd.loc.end.column};
             edge.range = {start: nd.range[0], end: nd.range[1]};
             return edge;
         }
         if (v.type === 'FuncVertex') {
             edge.label = astutil.funcname(v.func);
             edge.file = v.func.attr.enclosingFile;
-            edge.start = {row: v.func.loc.start.line, column: v.func.loc.start.column};
-            edge.end = {row: v.func.loc.end.line, column: v.func.loc.end.column};
             edge.range = {start: v.func.range[0], end: v.func.range[1]};
             return edge;
         }
@@ -57,10 +53,6 @@ exports.build = function(options={}) {
             //'Math_log' (Native)
             edge.label = v.name;
             edge.file = "Native";
-            edge.start.row = null;
-            edge.end.row = null;
-            edge.start.column = null;
-            edge.end.column = null;
             edge.range = {start: null, end: null};
             return edge;
         }
@@ -72,15 +64,11 @@ exports.build = function(options={}) {
             source: {
                 label: null,
                 file: null,
-                start: {row: null, column: null},
-                end: {row: null, column: null},
                 range: {start: null, end: null}
             },
             target: {
                 label: null,
                 file: null,
-                start: {row: null, column: null},
-                end: {row: null, column: null},
                 range: {start: null, end: null}
             }
         };

@@ -48,7 +48,6 @@
                             {
                                 type: 'Identifier',
                                 name: 'this',
-                                loc: nd.loc,
                                 range: nd.range,
                                 attr: {
                                     enclosingFile: nd.attr.enclosingFile,
@@ -78,7 +77,6 @@
                                 {
                                     type: 'Identifier',
                                     name: 'arguments',
-                                    loc: nd.loc,
                                     range: nd.range,
                                     attr: {
                                         enclosingFile: nd.attr.enclosingFile,

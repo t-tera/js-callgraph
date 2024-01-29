@@ -120,7 +120,6 @@ function init(root) {
                         type: 'Identifier',
                         name: parent.key.value,
                         range: parent.key.range,
-                        loc: parent.key.loc
                     };
                 }
                 else {
@@ -227,7 +226,7 @@ function encFuncName(encFunc) {
 
 /* Pretty-print position. */
 function ppPos(nd) {
-    return basename(nd.attr.enclosingFile) + "@" + nd.loc.start.line + ":" + nd.range[0] + "-" + nd.range[1];
+    return basename(nd.attr.enclosingFile) + "@" + nd.range[0] + "-" + nd.range[1];
 }
 
 /* Build as AST from a collection of source files */
@@ -355,8 +354,6 @@ Return:
 const cf = funcObj => {
     return funcObj.file + ':' +
            funcObj.name + ':' +
-           funcObj.range[0] + ':' +
-           funcObj.range[1] + ':' +
            (funcObj.charRange[1] - funcObj.charRange[0]);
 };
 
@@ -389,16 +386,11 @@ function getFunctions(root, src) {
         // funcName
         let funcName = funcname(fn);
 
-        // startLine && endLine
-        let startLine = fn.loc.start['line'];
-        let endLine = fn.loc.end['line'];
-
         // name, file and range are for colon format id
         // code and encFuncName are added for trackFunctions
         funcs.push({
             'name': funcName,
             'file': fn.attr.enclosingFile,
-            'range': [startLine, endLine],
             'charRange': fn.range,
             'code': src.substring(fn.range[0], fn.range[1]),
             'encFuncName': encFuncName(fn.attr.enclosingFunction)
@@ -416,7 +408,6 @@ function getFunctions(root, src) {
     funcs.push({
         'name': 'global',
         'file': prog.attr.filename,
-        'range': [prog.loc.start['line'], prog.loc.end['line']],
         'charRange': null,
         'code': null,
         'encFuncName': null,
